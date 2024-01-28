@@ -1,5 +1,6 @@
 # Projet Arduino - ESP32 Access-Point Webserver
 
+![Schema](./schema.png)
 
 ## Fonctionnalités
 Ce projet Arduino réalisé depuis l'IDE VSCode/PlatformIO permet de :
