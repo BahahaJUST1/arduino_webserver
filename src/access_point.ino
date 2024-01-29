@@ -30,6 +30,11 @@ String processor(const String& var)
         
         // récupération des appareils connectés
         get_all_connected_devices();
+
+        // on éteint les leds
+        digitalWrite(14, LOW);
+        digitalWrite(26, LOW);
+
         return connected_devices;
     }
     return String();
@@ -98,6 +103,9 @@ void display_connected_devices()
         Serial.print((String)"[+] Device " + nb_devices_connected + " | MAC : ");
         Serial.printf("%02X:%02X:%02X:%02X:%02X:%02X", station.mac[0], station.mac[1], station.mac[2], station.mac[3], station.mac[4], station.mac[5]);
         Serial.println();
+
+        // affichage led
+        digitalWrite(26, HIGH);
     }
 
     // si on a perdu un appareil [-]
@@ -108,6 +116,9 @@ void display_connected_devices()
 
         // affichage message
         Serial.println((String)"[-] Device disconnected | remaining : " + nb_devices_connected);
+
+        // affichage led
+        digitalWrite(14, HIGH);
     }
 }
 
@@ -116,6 +127,14 @@ void setup()
 {
     // port série
     Serial.begin(115200);
+
+    // leds
+    pinMode(14, OUTPUT);
+    pinMode(26, OUTPUT);
+
+    digitalWrite(14, LOW);
+    digitalWrite(26, LOW);
+
 
     // test fonctionnement SPIFFS
     if(!SPIFFS.begin(true)){
